@@ -29,7 +29,7 @@ export const experiences: Experience[] = [
     short: "UW Security",
     orgUrl: "https://www.franziroesner.com/students.html",
     description:
-      "leading an nsf-funded, first-author study on how browser agents hold up against deceptive web design: dark patterns, fake urgency, phishing pages, and other messy parts of the web.",
+      "leading an nsf-funded, first-author study on how browser agents hold up against deceptive web design. built three playwright/cdp harnesses and crash-safe experiment infrastructure for unattended runs, and found scaffold failure modes in comet, claude-in-chrome, and others.",
     category: "research",
     current: true,
   },
@@ -43,7 +43,7 @@ export const experiences: Experience[] = [
     short: "FinMD",
     orgUrl: "https://www.finmd.com/",
     description:
-      "building prospect intelligence tools for banks in healthcare lending.",
+      "built terrain end to end, a national risk map of housing and physician data for a $35b bank demo. also a scrapy crawler enriching a 1.1m-physician registry, and an llm pipeline that writes talking points for bankers with 97.2% grounding across 250 held-out cases.",
     category: "internship",
     current: true,
   },
@@ -56,7 +56,7 @@ export const experiences: Experience[] = [
     org: "UW Human-Computer Interaction Lab",
     short: "UW HCI",
     description:
-      "built a reusable llm pipeline analyzing android talkback traces to find mobile accessibility issues affecting blind users.",
+      "built a reusable llm pipeline analyzing android talkback traces for accessibility issues affecting blind users. cut token spend 67–81% by compacting view trees, and found 5 new failures across 9 task traces.",
     collaborator: { name: "mingyuan zhong", url: "https://mingyuanz.com/" },
     category: "research",
     current: true,
@@ -99,7 +99,7 @@ export const experiences: Experience[] = [
     short: "LessonLoop",
     orgUrl: "https://lessonloop.org/our-platform/",
     description:
-      "built engagify, an ai lesson revision tool with a rag backend that retrieves instructional strategies from a 2,500+ item knowledge base.",
+      "built engagify (vue/nuxt, node.js, aws bedrock), an ai lesson revision tool that raised student engagement 17%, with a rag backend over a 2,500+ item knowledge base.",
     category: "internship",
     current: false,
   },

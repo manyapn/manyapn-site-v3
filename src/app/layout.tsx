@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
 import KonamiEgg from "@/components/KonamiEgg";
 
 const display = localFont({
@@ -58,7 +57,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <Nav />
         <main>{children}</main>
-        <Footer />
         <KonamiEgg />
       </body>
     </html>
