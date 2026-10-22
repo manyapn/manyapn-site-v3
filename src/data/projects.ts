@@ -35,8 +35,7 @@ export const projects: Project[] = [
     when: "oct 2026",
     tier: "featured",
     facts: ["2nd place, big red hacks design track", "multimodal route-scoring pipeline"],
-    // add the repo or devpost link here when it's public
-    links: [],
+    links: [{ label: "github", url: "https://github.com/aanshu0112/tandem" }],
   },
   {
     id: "me-json",
