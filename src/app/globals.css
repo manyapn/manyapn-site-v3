@@ -728,10 +728,9 @@ html[data-sunset] .land-lens { background: var(--rose); }
 
 /* ─── Fun: travel map ────────────────────────────────── */
 .map-scroll {
-  /* wider than the text column; bleeds past it evenly on both sides */
-  width: min(860px, 100vw - 40px);
-  margin: 0.4rem 0 1.2rem 50%;
-  transform: translateX(-50%);
+  /* same width as the text and the photo grid below, so the three edges line up */
+  width: 100%;
+  margin: 0.8rem 0 1.1rem;
   overflow-x: auto;
   padding-bottom: 6px;
 }
@@ -789,7 +788,8 @@ html[data-sunset] .land-lens { background: var(--rose); }
   transition: opacity 0.12s ease;
 }
 .pin:hover .pin-tag, .pin:focus-visible .pin-tag, .pin[data-hot] .pin-tag, .pin[data-on] .pin-tag { opacity: 1; }
-.regions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem 1rem; margin-bottom: 2.4rem; }
+/* the index sits tight under the map; the photos are a new chapter, so the gap after it is the biggest on the page */
+.regions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem 1.25rem; margin-bottom: 3.4rem; }
 .city-tabs { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.9rem; }
 .region h3 { font-family: inherit; font-weight: 400; font-size: 0.78rem; color: var(--muted); margin: 0 0 0.3rem; padding: 0 0.6rem 0.3rem; border-bottom: 1px solid var(--line); }
 .region ul { list-style: none; display: flex; flex-direction: column; }
@@ -821,7 +821,7 @@ html[data-sunset] .land-lens { background: var(--rose); }
 .snap-card-foot { display: flex; flex-direction: column; gap: 0.3rem; }
 .snap-when { color: var(--ink); }
 .snap-meta { color: var(--muted); font-size: 0.8rem; }
-.snaps-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 1.6rem 0 0.9rem; }
+.snaps-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 0 0.8rem; }
 .snaps-hint { color: var(--muted); font-size: 0.8rem; }
 
 
@@ -904,14 +904,18 @@ html[data-sunset] .land-lens { background: var(--rose); }
   }
 
   /* fun: the map stays in the column, starts zoomed in, pins and zoom buttons get real tap targets */
-  .map-scroll { width: 100%; margin-left: 0; transform: none; overflow: hidden; }
+  .map-scroll { overflow: hidden; }
   .map { min-width: 0; aspect-ratio: 1 / 1; }
   .pin::before { content: ""; position: absolute; inset: -11px; }
   .pin-tag { font-size: 0.72rem; }
   .map-zoom { right: 6px; bottom: 6px; padding: 3px; gap: 3px; }
   .map-zoom button { width: 40px; height: 40px; }
-  .regions { grid-template-columns: repeat(2, 1fr); gap: 1rem 1.2rem; margin-bottom: 1.8rem; }
-  .region .tag { min-height: 44px; padding: 0.55rem 0.6rem; white-space: normal; }
+  /* the index becomes five short rows of chips instead of two tall columns */
+  .regions { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2.4rem; }
+  .region h3 { margin: 0 0 0.4rem; padding: 0; border-bottom: 0; }
+  .region ul { flex-direction: row; flex-wrap: wrap; gap: 0.35rem; }
+  .region .tag { display: inline-block; width: auto; min-height: 40px; padding: 0.5rem 0.75rem; border: 1px solid var(--line); white-space: nowrap; }
+  .region .tag[aria-pressed="true"] { border-color: var(--ink); }
   .snap-card { padding: 0.8rem 0.9rem; gap: 0.4rem; }
   .snap-card h2 { font-size: 1.3rem; }
   .snap-meta { font-size: 0.74rem; }
