@@ -568,6 +568,8 @@ button { font: inherit; color: inherit; }
 .callout p { max-width: none; }
 .post-key { background: var(--wash); padding: 0.9rem 1rem; margin: 1.5rem 0; font-size: 0.96rem; }
 .post-key p { max-width: none; margin-bottom: 0.5rem; }
+/* post bodies run the full column; the column itself is the measure */
+.post-content p { max-width: none; }
 .post-key p:last-child { margin-bottom: 0; }
 .post-quote { font-family: var(--font-display), serif; font-style: italic; font-size: 1.35rem; line-height: 1.4; padding: 1.2rem 0; border-top: 3px solid var(--accent); border-bottom: 1px solid var(--line); margin: 2.2rem 0; }
 
