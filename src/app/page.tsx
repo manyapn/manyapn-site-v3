@@ -3,6 +3,7 @@ import EmailLink from "@/components/EmailLink";
 import Portrait from "@/components/Portrait";
 import Page from "@/components/Page";
 import PageHead from "@/components/PageHead";
+import Tip from "@/components/Tip";
 import Wash from "@/components/Wash";
 import { landscapes } from "@/data/landscapes";
 import { personal } from "@/data/personal";
@@ -36,7 +37,7 @@ export default function Home() {
           <em>
             (<a href="https://retro.app/" target="_blank" rel="noopener noreferrer">loving retro right now</a>)
           </em>
-          , reading, collecting home depot paint chips, digi cams, <Link href="/fun">traveling</Link>, trip planning,
+          , reading, collecting home depot paint chips, <Tip text="(mine is the canon powershot elph 340 hs)">digi cams</Tip>, <Link href="/fun">traveling</Link>, trip planning,
           watching movies, and spending lots of time with friends and family.
         </p>
 

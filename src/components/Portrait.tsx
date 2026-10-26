@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import thumbs from "@/data/thumbs-site.json";
 
 /** How wide, in pixels, the pixelated version is. */
 const PIXELS = 96;
@@ -34,10 +35,24 @@ export default function Portrait({ src, alt }: { src: string; alt: string }) {
   };
 
   useEffect(() => {
+    // The inline 32 px copy shows first, and stays if the photo never loads.
+    const thumb = new Image();
+    thumb.src = thumbs.manya;
+    let done = false;
+    thumb.onload = () => {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext("2d");
+      if (done || !canvas || !ctx) return;
+      canvas.width = thumb.naturalWidth;
+      canvas.height = thumb.naturalHeight;
+      ctx.drawImage(thumb, 0, 0);
+    };
+
     const img = new Image();
     img.src = src;
     imgRef.current = img;
     img.onload = () => {
+      done = true;
       const canvas = canvasRef.current;
       if (!canvas) return;
       canvas.width = img.naturalWidth;

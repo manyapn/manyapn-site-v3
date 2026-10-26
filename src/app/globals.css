@@ -145,6 +145,37 @@ mark { color: inherit; padding: 0 0.08em; }
 .wash-lavender { background: linear-gradient(transparent 52%, color-mix(in oklab, var(--lavender) 38%, transparent) 52%, color-mix(in oklab, var(--lavender) 38%, transparent) 94%, transparent 94%); }
 .wash-sap      { background: linear-gradient(transparent 52%, color-mix(in oklab, var(--sap) 36%, transparent) 52%, color-mix(in oklab, var(--sap) 36%, transparent) 94%, transparent 94%); }
 
+/* A little paper tag that pops up over a word on hover or focus. */
+.tip {
+  position: relative;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent);
+  cursor: help;
+}
+.tip-tag {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translate(-50%, 4px);
+  white-space: nowrap;
+  padding: 2px 8px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--accent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 2;
+}
+.tip:hover .tip-tag, .tip:focus-visible .tip-tag {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+@media (max-width: 600px) {
+  .tip-tag { white-space: normal; width: max-content; max-width: 70vw; }
+}
+
 /* legacy aliases used by posts */
 .mark-blue     { background: linear-gradient(transparent 52%, color-mix(in oklab, var(--cobalt) 34%, transparent) 52%, color-mix(in oklab, var(--cobalt) 28%, transparent) 94%, transparent 94%); }
 .mark-green    { background: linear-gradient(transparent 52%, color-mix(in oklab, var(--sap) 36%, transparent) 52%, color-mix(in oklab, var(--sap) 36%, transparent) 94%, transparent 94%); }
@@ -230,7 +261,8 @@ button { font: inherit; color: inherit; }
     repeating-linear-gradient(90deg, transparent 0 5px, #000 5px 13px, transparent 13px 18px) left calc(100% - 4px) / 100% 4px no-repeat,
     repeating-linear-gradient(90deg, transparent 0 11px, #000 11px 15px, transparent 15px 18px) bottom / 100% 4px no-repeat;
   overflow: hidden;
-  background: var(--paper-2);
+  /* the page's pigment, so there is colour under the painting before it arrives */
+  background: color-mix(in oklab, var(--accent) 28%, var(--paper-2));
   touch-action: pan-y;
 }
 

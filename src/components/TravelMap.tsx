@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useTransform } from "framer-motion";
 import PixelGrid from "@/components/PixelGrid";
 import { funPlaces, pins, regions, type FunPlace, type Pin } from "@/data/fun";
+import thumbs from "@/data/thumbs-site.json";
 
 /** The map png covers every longitude and latitudes 75°N to 56°S, one degree per pixel. */
 const MAP = { w: 360, h: 131, top: 75 };
@@ -172,7 +173,17 @@ export default function TravelMap() {
             dragElastic={0.08}
             dragMomentum={false}
           >
-            <img className="map-land" src="/fun/world.png" width={MAP.w} height={MAP.h} alt="" draggable={false} />
+            <img
+              className="map-land"
+              src="/fun/world.png"
+              width={MAP.w}
+              height={MAP.h}
+              alt=""
+              draggable={false}
+              onError={(e) => {
+                e.currentTarget.src = thumbs.world;
+              }}
+            />
             {pins.map((pin, i) => {
               const n = pin.city ? pin.place.photos.filter((ph) => ph.city === pin.city).length : pin.place.photos.length;
               const name = pin.city ?? pin.place.name;

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import { pxSrc, type Landscape as Land } from "@/data/landscapes";
+import thumbs from "@/data/thumbs-site.json";
 
 /** Pixel widths a viewer can choose. */
 export const LEVELS = [30, 60, 120, 240, 480, 960, 1920] as const;
@@ -12,6 +13,8 @@ const STORAGE_KEY = "px-width";
 const DEVELOP_STEPS = [10, 20, 40, 80, 160, 320, 640, 1280];
 const STEP_MS = 85;
 const LENS_RADIUS = 150;
+/** Width of the inline copy in thumbs-site.json; the backup when the png is slow or missing. */
+const THUMB_W = 32;
 
 type Props = { land: Land; children?: React.ReactNode };
 
@@ -37,6 +40,7 @@ export default function Landscape({ land, children }: Props) {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [level, setLevel] = useState(DEFAULT_LEVEL);
   const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
   const mx = useMotionValue(-1000);
   const my = useMotionValue(-1000);
   const r = useMotionValue(0);
@@ -45,9 +49,8 @@ export default function Landscape({ land, children }: Props) {
   const radius = useSpring(r, { stiffness: 220, damping: 28 });
   const mask = useMotionTemplate`radial-gradient(circle ${radius}px at ${x}px ${y}px, #000 0, #000 55%, transparent 100%)`;
 
-  const drawAt = (w: number) => {
+  const drawAt = (w: number, img = imgRef.current) => {
     const canvas = canvasRef.current;
-    const img = imgRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !img || !ctx) return;
     if (w >= land.width) {
@@ -80,17 +83,27 @@ export default function Landscape({ land, children }: Props) {
     const saved = window.matchMedia("(max-width: 600px)").matches ? DEFAULT_LEVEL : readLevel();
     setLevel(saved);
 
+    // The tiny inline copy goes up right away, so the hero is never blank.
+    const thumb = new Image();
+    thumb.src = thumbs[land.key as keyof typeof thumbs];
+    let done = false;
+    thumb.onload = () => {
+      if (!done) drawAt(THUMB_W, thumb);
+    };
+
     const img = new Image();
     img.src = pxSrc(land);
     imgRef.current = img;
+    img.onerror = () => setFailed(true);
     const timers: ReturnType<typeof setTimeout>[] = [];
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const target = Math.min(LEVELS[saved], land.width);
 
     img.onload = () => {
+      done = true;
       setReady(true);
       if (reduced) return drawAt(target);
-      const steps = DEVELOP_STEPS.filter((w) => w < target);
+      const steps = DEVELOP_STEPS.filter((w) => w > THUMB_W && w < target);
       steps.forEach((w, i) => timers.push(setTimeout(() => drawAt(w), i * STEP_MS)));
       timers.push(setTimeout(() => drawAt(target), steps.length * STEP_MS));
     };
@@ -139,7 +152,7 @@ export default function Landscape({ land, children }: Props) {
         {children}
       </div>
 
-      <div className="px-control pixel" role="radiogroup" aria-label="pixel level">
+      <div className="px-control pixel" role="radiogroup" aria-label="pixel level" hidden={failed}>
         <span className="px-control-label">pixels</span>
         {LEVELS.map((w, i) => (
           <button
