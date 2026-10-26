@@ -709,7 +709,7 @@ html[data-sunset] .land-lens { background: var(--rose); }
 .portrait:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 @media (max-width: 700px) {
   .home-grid { grid-template-columns: 1fr; gap: 1.6rem; }
-  .portrait { aspect-ratio: 4 / 5; max-width: 260px; }
+  .portrait { aspect-ratio: 4 / 5; width: 100%; max-width: 260px; justify-self: center; }
 }
 
 /* ─── Fun: travel map ────────────────────────────────── */
@@ -829,7 +829,7 @@ html[data-sunset] .land-lens { background: var(--rose); }
   .nav-brand { order: -2; }
   .sunset-toggle { order: -1; }
   .sunset-toggle span { display: none; }
-  .sunset-toggle { padding: 0.45rem 0.55rem; }
+  .sunset-toggle { min-height: 44px; padding: 0 0.7rem; }
   .nav-menu-btn {
     display: inline-flex; align-items: center; gap: 0.55rem;
     min-height: 44px; padding: 0.4rem 0.8rem;
