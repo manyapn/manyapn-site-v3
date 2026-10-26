@@ -6,7 +6,7 @@ import { landscapes } from "@/data/landscapes";
 import { ArrowUpRightIcon } from "@/icons";
 
 export const metadata = {
-  title: "experiences | manya pradeep narayan",
+  title: "experiences",
   description:
     "manya's experience timeline: security research at uw, engineering at finmd, cornell research, ewb, and more.",
 };

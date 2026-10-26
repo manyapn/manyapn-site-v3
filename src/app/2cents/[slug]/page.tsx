@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);
   return {
-    title: post ? `${post.title} | manya pradeep narayan` : "2 cents",
+    title: post ? post.title : "2 cents",
     description: post?.description,
   };
 }

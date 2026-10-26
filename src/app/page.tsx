@@ -7,7 +7,10 @@ import { landscapes } from "@/data/landscapes";
 import { personal } from "@/data/personal";
 import { GithubBrandIcon, LinkedinBrandIcon } from "@/icons";
 
-export const metadata = { title: "manya pradeep narayan" };
+export const metadata = {
+  title: { absolute: "manya pradeep narayan" },
+  description: "manya pradeep narayan: cs + ai student at cornell, from seattle. agentic systems, human-ai interaction, and software that feels personal. projects, experience, writing, and a pixel travel map.",
+};
 
 export default function Home() {
   const land = landscapes.rainier;

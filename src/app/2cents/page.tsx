@@ -5,7 +5,7 @@ import { landscapes } from "@/data/landscapes";
 import { posts } from "@/data/posts";
 
 export const metadata = {
-  title: "2 cents | manya pradeep narayan",
+  title: "2 cents",
   description: "things manya thinks about.",
 };
 

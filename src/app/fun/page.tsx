@@ -5,7 +5,7 @@ import { landscapes } from "@/data/landscapes";
 import { funPhotoCount, funPlaces } from "@/data/fun";
 
 export const metadata = {
-  title: "fun | manya pradeep narayan",
+  title: "fun",
   description: "a pixel map of places manya has been, with photos from each one.",
 };
 

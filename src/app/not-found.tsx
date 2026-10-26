@@ -3,7 +3,7 @@ import Page from "@/components/Page";
 import PageHead from "@/components/PageHead";
 import { landscapes } from "@/data/landscapes";
 
-export const metadata = { title: "404 | manya pradeep narayan" };
+export const metadata = { title: "404" };
 
 export default function NotFound() {
   const land = landscapes.gorge;

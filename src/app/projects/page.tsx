@@ -7,7 +7,7 @@ import { personal } from "@/data/personal";
 import { ArrowUpRightIcon } from "@/icons";
 
 export const metadata = {
-  title: "projects | manya pradeep narayan",
+  title: "projects",
   description:
     "things manya has built: checkpoint, tandem, me.json, ithaca reuse, and a shelf of smaller experiments.",
 };

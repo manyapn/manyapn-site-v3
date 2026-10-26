@@ -7,7 +7,7 @@ import { getLetterboxd, letterboxdUrl } from "@/lib/letterboxd";
 import { getLatestPush } from "@/lib/github";
 
 export const metadata = {
-  title: "now | manya pradeep narayan",
+  title: "now",
   description:
     "what manya is up to right now: engineering at finmd, building with cornell engineers without borders and women in computing, taking classes, and looking for summer 2027 internships.",
 };

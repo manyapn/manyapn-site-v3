@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const project = written.find((p) => p.id === slug);
   return {
-    title: project ? `${project.title} | manya pradeep narayan` : "projects",
+    title: project ? project.title : "projects",
     description: project?.description,
   };
 }
