@@ -277,7 +277,8 @@ button { font: inherit; color: inherit; }
 }
 
 .land-px { image-rendering: pixelated; image-rendering: crisp-edges; }
-.land-lens { pointer-events: none; background: var(--paper); opacity: 0.3; mix-blend-mode: lighten; }
+/* the page's own pigment, pooled where the pointer is: deepens the colour instead of bleaching it */
+.land-lens { pointer-events: none; background: var(--accent); opacity: 0.32; mix-blend-mode: multiply; }
 
 
 
