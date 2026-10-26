@@ -185,7 +185,7 @@ mark { color: inherit; padding: 0 0.08em; }
 /* ─── Layout ─────────────────────────────────────────── */
 .frame { max-width: var(--frame); margin: 0 auto; padding: 0 20px; }
 .wrap  { max-width: var(--wrap);  margin: 0 auto; padding: 0 20px; }
-.wrap-wide { max-width: 1020px; margin: 0 auto; padding: 0 20px; }
+.wrap-wide { max-width: 860px; margin: 0 auto; padding: 0 20px; }
 
 main { padding-bottom: 3rem; }
 
@@ -445,7 +445,7 @@ button { font: inherit; color: inherit; }
 .xp-role { font-weight: 600; }
 .xp-org { color: var(--muted); }
 .xp-period { font-family: var(--font-pixel), monospace; font-size: 0.84rem; color: var(--muted); margin-bottom: 0.4rem; }
-.xp-desc { font-size: 0.96rem; line-height: 1.55; color: var(--muted); max-width: 60ch; margin-bottom: 0; }
+.xp-desc { font-size: 0.96rem; line-height: 1.55; color: var(--muted); max-width: none; margin-bottom: 0; }
 .xp-clubs { line-height: 1.9; }
 .xp-club-role { font-family: var(--font-pixel), monospace; font-size: 0.84rem; color: var(--muted); }
 .xp-club-sep { color: var(--line); }
@@ -530,7 +530,7 @@ button { font: inherit; color: inherit; }
 .post-title { font-family: var(--font-display), serif; font-size: 1.3rem; font-weight: 500; line-height: 1.2; margin-bottom: 0.25rem; }
 .post-title a { color: var(--ink); border-bottom-color: transparent; }
 .post-meta { color: var(--muted); margin-bottom: 0.35rem; }
-.post-desc { font-size: 0.96rem; color: var(--muted); margin: 0; }
+.post-desc { font-size: 0.96rem; color: var(--muted); margin: 0; max-width: none; }
 
 /* post overview */
 .back-link { margin-bottom: 1.6rem; }
