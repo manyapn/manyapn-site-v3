@@ -4,9 +4,12 @@ import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import { pxSrc, type Landscape as Land } from "@/data/landscapes";
 import thumbs from "@/data/thumbs-site.json";
+import IdleCat from "@/components/IdleCat";
+import { paintSunset } from "@/lib/sunsetPaint";
+import { useSunset } from "@/lib/sunsetStore";
 
 /** Pixel widths a viewer can choose. */
-export const LEVELS = [30, 60, 120, 240, 480, 960, 1920] as const;
+export const LEVELS = [30, 60, 120, 240, 480] as const;
 const DEFAULT_LEVEL = 3;
 const STORAGE_KEY = "px-width";
 /** Widths the painting passes through while it develops on first load. */
@@ -37,6 +40,10 @@ function readLevel(): number {
  */
 export default function Landscape({ land, children }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const duskRef = useRef<HTMLCanvasElement>(null);
+  const sunset = useSunset();
+  const sunsetRef = useRef(sunset);
+  sunsetRef.current = sunset;
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [level, setLevel] = useState(DEFAULT_LEVEL);
   const [ready, setReady] = useState(false);
@@ -56,6 +63,7 @@ export default function Landscape({ land, children }: Props) {
     if (w >= land.width) {
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(img, 0, 0);
+      repaintDusk();
       return;
     }
     const h = Math.max(1, Math.round((land.height * w) / land.width));
@@ -71,7 +79,18 @@ export default function Landscape({ land, children }: Props) {
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
+    repaintDusk();
   };
+
+  /** The sunset copy only gets painted while sunset is on; it fades in over the day one with css. */
+  const repaintDusk = () => {
+    if (sunsetRef.current && canvasRef.current && duskRef.current) paintSunset(canvasRef.current, duskRef.current);
+  };
+
+  useEffect(() => {
+    if (sunset) repaintDusk();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sunset]);
 
   // First load: develop up to the saved level.
   useEffect(() => {
@@ -148,7 +167,9 @@ export default function Landscape({ land, children }: Props) {
         onPointerLeave={leave}
       >
         <canvas ref={canvasRef} className="land-px" role="img" aria-label={land.alt} />
+        <canvas ref={duskRef} className="land-px land-dusk" aria-hidden="true" />
         <motion.div className="land-lens" aria-hidden="true" style={{ maskImage: mask, WebkitMaskImage: mask }} />
+        <IdleCat />
         {children}
       </div>
 

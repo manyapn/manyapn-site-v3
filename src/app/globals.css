@@ -176,6 +176,8 @@ mark { color: inherit; padding: 0 0.08em; }
   .tip-tag { white-space: normal; width: max-content; max-width: 70vw; }
 }
 
+.field-notes { margin-top: 3.5rem; color: var(--muted); font-size: 0.86rem; line-height: 1.7; }
+
 /* legacy aliases used by posts */
 .mark-blue     { background: linear-gradient(transparent 52%, color-mix(in oklab, var(--cobalt) 34%, transparent) 52%, color-mix(in oklab, var(--cobalt) 28%, transparent) 94%, transparent 94%); }
 .mark-green    { background: linear-gradient(transparent 52%, color-mix(in oklab, var(--sap) 36%, transparent) 52%, color-mix(in oklab, var(--sap) 36%, transparent) 94%, transparent 94%); }
@@ -200,7 +202,6 @@ button { font: inherit; color: inherit; }
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
   padding-top: 18px;
@@ -208,6 +209,7 @@ button { font: inherit; color: inherit; }
 }
 
 .nav-brand {
+  margin-right: auto;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
@@ -279,6 +281,35 @@ button { font: inherit; color: inherit; }
 .land-px { image-rendering: pixelated; image-rendering: crisp-edges; }
 /* the page's own pigment, pooled where the pointer is: deepens the colour instead of bleaching it */
 .land-lens { pointer-events: none; background: var(--accent); opacity: 0.32; mix-blend-mode: multiply; }
+
+/* ─── Sunset ──────────────────────────────────────────────
+   Around sunset in ithaca (or after typing "sunset") the paper warms a
+   shade and a rose-to-ochre glow pools along the painting's horizon. */
+html[data-sunset] {
+  --paper: #f7eee0;
+  --paper-2: #efe3cf;
+  --paper-3: #e6d7bd;
+  --line: #ddcfb6;
+}
+body, .land, .hero-card, .nav, .tip-tag, .snap figcaption { transition: background-color 1.6s ease; }
+/* the repainted copy sits over the day painting and fades in */
+.land-dusk { opacity: 0; transition: opacity 1.6s ease; pointer-events: none; }
+html[data-sunset] .land-dusk { opacity: 1; }
+html[data-sunset] .land-lens { background: var(--rose); }
+
+.sunset-toggle {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.3rem 0.55rem; border: 1px solid var(--line); background: var(--paper);
+  color: var(--muted); font-size: 0.86rem; cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.sunset-toggle:hover { color: var(--ink); border-color: var(--ink); }
+.sunset-toggle[aria-pressed="true"] { color: var(--ink); border-color: var(--rose); box-shadow: 3px 3px 0 var(--rose); }
+
+/* ─── Idle cat ─────────────────────────────────────────── */
+.idle-stage { position: absolute; left: 0; right: 0; bottom: 14px; height: 0; pointer-events: none; z-index: 1; }
+.idle-cat { position: absolute; right: 0; bottom: 0; color: var(--ink); }
+.idle-cat .cat { cursor: default; }
 
 
 
@@ -707,7 +738,13 @@ button { font: inherit; color: inherit; }
 }
 .pin:hover, .pin:focus-visible, .pin[data-hot] { background: var(--accent); z-index: 2; }
 .pin[data-on] { background: var(--accent); z-index: 3; }
-.pin-ring { position: absolute; inset: -6px; border: 2px solid var(--accent); pointer-events: none; }
+.pin-ring {
+  position: absolute; z-index: 3;
+  --size: calc(9px + var(--n, 1) * 0.7px + 12px);
+  width: var(--size); height: var(--size);
+  margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+  border: 2px solid var(--accent); pointer-events: none;
+}
 .map-zoom {
   position: absolute; right: 10px; bottom: 10px; z-index: 4;
   display: inline-flex; align-items: center; gap: 2px;
@@ -764,7 +801,8 @@ button { font: inherit; color: inherit; }
 .snap-card-foot { display: flex; flex-direction: column; gap: 0.3rem; }
 .snap-when { color: var(--ink); }
 .snap-meta { color: var(--muted); font-size: 0.8rem; }
-.snaps-hint { margin-top: 1rem; color: var(--muted); font-size: 0.8rem; }
+.snaps-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 1.6rem 0 0.9rem; }
+.snaps-hint { color: var(--muted); font-size: 0.8rem; }
 
 
 /* ─── Phones ─────────────────────────────────────────── */
@@ -782,6 +820,10 @@ button { font: inherit; color: inherit; }
   .nav-brand { gap: 0.75rem; font-size: 0.92rem; min-height: 44px; }
   .nav-brand span { white-space: nowrap; }
   .nav-links { display: none; }
+  .nav-brand { order: -2; }
+  .sunset-toggle { order: -1; }
+  .sunset-toggle span { display: none; }
+  .sunset-toggle { padding: 0.45rem 0.55rem; }
   .nav-menu-btn {
     display: inline-flex; align-items: center; gap: 0.55rem;
     min-height: 44px; padding: 0.4rem 0.8rem;

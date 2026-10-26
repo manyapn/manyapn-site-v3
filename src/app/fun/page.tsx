@@ -21,6 +21,11 @@ export default function FunPage() {
           to so far, in pixels. click a pin (or a name under the map) for photos.
         </p>
         <TravelMap />
+
+        <p className="field-notes pixel">
+          field notes: the paintings go golden around sunset in ithaca, or whenever you press the sun up top.
+          the cat wanders over if you sit still for a bit. and ↑ ↑ ↓ ↓ ← → ← → b a does a little something.
+        </p>
       </div>
     </Page>
   );

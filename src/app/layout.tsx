@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import KonamiEgg from "@/components/KonamiEgg";
+import Sunset from "@/components/Sunset";
 
 const display = localFont({
   src: [
@@ -101,6 +102,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Nav />
         <main>{children}</main>
         <KonamiEgg />
+        <Sunset />
       </body>
     </html>
   );

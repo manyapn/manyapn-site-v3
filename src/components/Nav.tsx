@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, animate, motion, useMotionValue } from "framer-motion";
 import PixelCat from "@/components/PixelCat";
+import SunsetToggle from "@/components/SunsetToggle";
 import { landscapes } from "@/data/landscapes";
 
 const links = [
@@ -103,6 +104,8 @@ export default function Nav() {
           );
         })}
       </ul>
+
+      <SunsetToggle />
 
       <AnimatePresence>
         {open && (

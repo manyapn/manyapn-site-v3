@@ -1,15 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { FunPhoto } from "@/data/fun";
 import thumbs from "@/data/thumbs-fun.json";
+
+/** True while "unpixelate all" is on; every tile follows it, then clicks take over again. */
+export const ClearAll = createContext(false);
 
 type Props = { photo: FunPhoto; size: [number, number]; width: number; alt: string };
 
 /** One tile: pixels by default, the real photo after a click, pixels again on the next. */
 export default function Snap({ photo, size: [w, h], width, alt }: Props) {
   const [clear, setClear] = useState(false);
+  const all = useContext(ClearAll);
+  useEffect(() => setClear(all), [all]);
   const [px, setPx] = useState(`/fun/${photo.id}.png`);
   const [noClear, setNoClear] = useState(false);
   return (

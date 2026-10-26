@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useTransform } from "framer-motion";
 import PixelGrid from "@/components/PixelGrid";
+import { ClearAll } from "@/components/Snap";
 import { funPlaces, pins, regions, type FunPlace, type Pin } from "@/data/fun";
 import thumbs from "@/data/thumbs-site.json";
 
@@ -158,6 +159,9 @@ export default function TravelMap() {
 
   const isOn = (pin: Pin) => pin.place.key === active && (pin.city ?? null) === city;
   const pinId = (pin: Pin) => (pin.city ? `${pin.place.key}/${pin.city}` : pin.place.key);
+  const countFor = (pin: Pin) => (pin.city ? pin.place.photos.filter((ph) => ph.city === pin.city).length : pin.place.photos.length);
+  const onPin = pins.find(isOn);
+  const [allClear, setAllClear] = useState(false);
 
 
   return (
@@ -185,7 +189,7 @@ export default function TravelMap() {
               }}
             />
             {pins.map((pin, i) => {
-              const n = pin.city ? pin.place.photos.filter((ph) => ph.city === pin.city).length : pin.place.photos.length;
+              const n = countFor(pin);
               const name = pin.city ?? pin.place.name;
               return (
                 <motion.button
@@ -202,12 +206,21 @@ export default function TravelMap() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 + i * 0.02 }}
                 >
-                  {isOn(pin) && <motion.span layoutId="pin-ring" className="pin-ring" transition={spring} />}
                   <span className="pin-tag pixel">{name}</span>
                   <span className="sr-only">{pin.city ? `${pin.city}, ${pin.place.name}` : name}</span>
                 </motion.button>
               );
             })}
+            {onPin && (
+              <motion.span
+                className="pin-ring"
+                style={{ scale: inverse, ...({ "--n": Math.min(countFor(onPin), 8) } as React.CSSProperties) }}
+                initial={false}
+                animate={{ left: `${at(onPin).x * 100}%`, top: `${at(onPin).y * 100}%` }}
+                transition={spring}
+                aria-hidden="true"
+              />
+            )}
           </motion.div>
           </div>
 
@@ -238,6 +251,14 @@ export default function TravelMap() {
         ))}
       </div>
 
+      <div className="snaps-bar pixel">
+        <span className="snaps-hint">click any photo to unpixelate it</span>
+        <button type="button" className="tag" aria-pressed={allClear} onClick={() => setAllClear((a) => !a)}>
+          {allClear ? "pixelate all" : "unpixelate all"}
+        </button>
+      </div>
+
+      <ClearAll.Provider value={allClear}>
       <AnimatePresence mode="wait" initial={false}>
         <motion.section
           key={place.key}
@@ -251,7 +272,7 @@ export default function TravelMap() {
           <Trip place={place} city={city} onCity={(c) => pick(place.key, c)} />
         </motion.section>
       </AnimatePresence>
-      <p className="pixel snaps-hint">click any photo to unpixelate it</p>
+      </ClearAll.Provider>
     </>
   );
 }
