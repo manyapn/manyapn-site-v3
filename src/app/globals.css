@@ -251,6 +251,13 @@ button { font: inherit; color: inherit; }
 /* phone menu (hidden on wide screens) */
 .nav-menu-btn, .nav-menu, .nav-backdrop { display: none; }
 
+/* tablets and narrow laptops: brand and sun on the first row, the links on a ruled second row */
+@media (min-width: 601px) and (max-width: 940px) {
+  .nav { row-gap: 0.55rem; padding-bottom: 8px; }
+  .nav-links { order: 1; flex: 0 0 100%; flex-wrap: nowrap; justify-content: flex-start; gap: 0.1rem; padding-top: 0.5rem; border-top: 1px solid var(--line); font-size: 0.95rem; }
+  .nav-links li:first-child .nav-link { margin-left: -0.55rem; }
+}
+
 /* ─── Landscape hero ─────────────────────────────────── */
 .hero { position: relative; margin-bottom: 2.6rem; }
 
