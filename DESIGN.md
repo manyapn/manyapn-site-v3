@@ -24,26 +24,24 @@ colors:
   terminal-ink: "#cfe3d2"
 typography:
   display:
-    fontFamily: "Fraunces, Georgia, serif"
+    fontFamily: "Besley, Georgia, serif"
     fontSize: "clamp(2.1rem, 4.6vw, 3rem)"
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 1
-    letterSpacing: "-0.02em"
-    fontVariation: "'opsz' 144"
+    letterSpacing: "-0.015em"
   headline:
     fontFamily: "Fraunces, Georgia, serif"
     fontSize: "1.45rem"
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 1.2
     letterSpacing: "-0.01em"
-    fontVariation: "'opsz' 48"
   title:
     fontFamily: "Fraunces, Georgia, serif"
     fontSize: "1.3rem"
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 1.2
   body:
-    fontFamily: "Instrument Sans, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
     fontSize: "16.5px"
     fontWeight: 400
     lineHeight: 1.7
@@ -166,10 +164,10 @@ Under `html[data-sunset]` the paper tokens warm to #f7eee0, #efe3cf, #e6d7bd and
 
 ## 3. Typography
 
-Three faces, each with one job. Fraunces (variable, optical sizes) for titles, Instrument Sans for reading, Pixelify Sans for anything that behaves like a label.
+Three faces, each with one job. Besley (a Clarendon revival, the trail-sign and hardware-label serif) for titles, Hanken Grotesk for reading, Pixelify Sans for anything that behaves like a label. Besley and Hanken Grotesk load through next/font/google and are self-hosted at build time; Pixelify Sans lives in public/fonts.
 
-- **Display**: page titles in the hero paper tag, `clamp(2.1rem, 4.6vw, 3rem)`, weight 500, line-height 1, `opsz` 144, tracking -0.02em. Always lowercase.
-- **Headline**: section headings, 1.45rem, `opsz` 48, 2.6rem above and 0.9rem below. Occasionally italic (the notes card).
+- **Display**: page titles in the hero paper tag, `clamp(2.1rem, 4.6vw, 3rem)`, weight 400, line-height 1, tracking -0.015em. Always lowercase. Besley at 400 is already sturdy; never push titles above 500.
+- **Headline**: section headings, 1.45rem, weight 400, 2.6rem above and 0.9rem below. Occasionally italic (the notes card).
 - **Title**: post and project titles, 1.3rem.
 - **Body**: 16.5px, line-height 1.7, `text-wrap: pretty`. Paragraphs cap at 60ch except where the column itself is the measure (post bodies, experience blurbs, 2cents summaries). The lede steps up to 1.1rem.
 - **Label**: Pixelify Sans at 0.9rem (0.82 to 0.86rem for dense metadata, never below 0.72rem). Used for nav links, captions, hero credits, dates, chips, tooltips, toasts, hints and the pixel control.

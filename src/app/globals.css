@@ -90,7 +90,7 @@ body::after {
 /* ─── Type ───────────────────────────────────────────── */
 h1, h2, h3 {
   font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--ink);
   text-wrap: balance;
 }
@@ -98,8 +98,7 @@ h1, h2, h3 {
 h1 {
   font-size: clamp(2.1rem, 4.6vw, 3rem);
   line-height: 1;
-  letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.015em;
 }
 
 h2 {
@@ -107,7 +106,6 @@ h2 {
   line-height: 1.2;
   letter-spacing: -0.01em;
   margin: 2.6rem 0 0.9rem;
-  font-variation-settings: "opsz" 48;
 }
 
 h3 {
@@ -579,7 +577,7 @@ html[data-sunset] .land-lens { background: var(--rose); }
 .post-entry:last-child { border-bottom: 1px solid var(--line); }
 .post-entry-dot { width: 8px; height: 8px; margin-top: 0.7rem; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.25s steps(3, end); }
 .post-entry:hover .post-entry-dot, .post-entry:focus-within .post-entry-dot { transform: scaleX(1); }
-.post-title { font-family: var(--font-display), serif; font-size: 1.3rem; font-weight: 500; line-height: 1.2; margin-bottom: 0.25rem; }
+.post-title { font-family: var(--font-display), serif; font-size: 1.3rem; font-weight: 400; line-height: 1.2; margin-bottom: 0.25rem; }
 .post-title a { color: var(--ink); border-bottom-color: transparent; }
 .post-meta { color: var(--muted); margin-bottom: 0.35rem; }
 .post-desc { font-size: 0.96rem; color: var(--muted); margin: 0; max-width: none; }
@@ -590,7 +588,7 @@ html[data-sunset] .land-lens { background: var(--rose); }
 
 .chapter-card { display: block; padding: 1rem 0.2rem 1.1rem; border-top: 1px solid var(--line); transition: background 0.15s ease; }
 .chapter-card:hover { background: var(--paper-2); }
-.chapter-card-title { font-family: var(--font-display), serif; font-size: 1.15rem; font-weight: 500; color: var(--link); margin-bottom: 0.2rem; }
+.chapter-card-title { font-family: var(--font-display), serif; font-size: 1.15rem; font-weight: 400; color: var(--link); margin-bottom: 0.2rem; }
 .ch-num, .ch-time { font-family: var(--font-pixel), monospace; font-size: 0.84rem; color: var(--muted); }
 .source-note { margin-top: 2rem; color: var(--muted); font-size: 0.9rem; }
 

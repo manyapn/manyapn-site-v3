@@ -1,26 +1,21 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Besley, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import KonamiEgg from "@/components/KonamiEgg";
 import Sunset from "@/components/Sunset";
 
-const display = localFont({
-  src: [
-    { path: "../../public/fonts/fraunces-normal.woff2", style: "normal" },
-    { path: "../../public/fonts/fraunces-italic.woff2", style: "italic" },
-  ],
-  weight: "300 700",
+const display = Besley({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-const body = localFont({
-  src: [
-    { path: "../../public/fonts/instrument-sans-normal.woff2", style: "normal" },
-    { path: "../../public/fonts/instrument-sans-italic.woff2", style: "italic" },
-  ],
-  weight: "400 700",
+const body = Hanken_Grotesk({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
   variable: "--font-body",
   display: "swap",
 });

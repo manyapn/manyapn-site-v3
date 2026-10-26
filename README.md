@@ -8,7 +8,7 @@ through a small pixel-watercolor script, and that landscape tints the page.
 - Next.js 16 (App Router, static export)
 - Tailwind CSS v4 for the reset, plain CSS for everything else
 - Framer Motion for the nav marker, the hover lens, and the paint-chip deck
-- Fonts, self-hosted: Fraunces (display), Instrument Sans (body), Pixelify Sans (labels)
+- Fonts, self-hosted: Besley (display), Hanken Grotesk (body), Pixelify Sans (labels)
 - Icons: Lucide (ISC) and Simple Icons (CC0), inlined in `src/icons`
 
 ## routes
