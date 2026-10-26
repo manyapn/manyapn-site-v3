@@ -1,3 +1,4 @@
+import Link from "next/link";
 import EmailLink from "@/components/EmailLink";
 import Portrait from "@/components/Portrait";
 import Page from "@/components/Page";
@@ -35,7 +36,7 @@ export default function Home() {
           <em>
             (<a href="https://retro.app/" target="_blank" rel="noopener noreferrer">loving retro right now</a>)
           </em>
-          , reading, collecting home depot paint chips, digi cams, traveling, trip planning,
+          , reading, collecting home depot paint chips, digi cams, <Link href="/fun">traveling</Link>, trip planning,
           watching movies, and spending lots of time with friends and family.
         </p>
 
