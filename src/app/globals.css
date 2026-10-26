@@ -172,7 +172,8 @@ button { font: inherit; color: inherit; }
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  padding: 18px 0 14px;
+  padding-top: 18px;
+  padding-bottom: 14px;
 }
 
 .nav-brand {
@@ -742,7 +743,7 @@ button { font: inherit; color: inherit; }
   p { max-width: none; }
 
   /* nav: brand left, a pixel menu button right that names the current page; the list drops down under it */
-  .nav { padding: 12px 0 10px; gap: 0.6rem; flex-wrap: nowrap; position: relative; z-index: 30; }
+  .nav { padding-top: 12px; padding-bottom: 10px; gap: 0.6rem; flex-wrap: nowrap; position: relative; z-index: 30; }
   .nav-brand { gap: 0.75rem; font-size: 0.92rem; min-height: 44px; }
   .nav-brand span { white-space: nowrap; }
   .nav-links { display: none; }
@@ -760,7 +761,7 @@ button { font: inherit; color: inherit; }
   .nav-backdrop { display: block; position: fixed; inset: 0; z-index: 10; border: 0; padding: 0; background: color-mix(in oklab, var(--ink) 18%, transparent); }
   .nav-menu {
     display: flex; flex-direction: column;
-    position: absolute; left: 20px; right: 20px; top: calc(100% + 4px); z-index: 20;
+    position: absolute; left: max(20px, env(safe-area-inset-left)); right: max(20px, env(safe-area-inset-right)); top: calc(100% + 4px); z-index: 20;
     list-style: none; padding: 0.3rem 0;
     background: var(--paper); border: 1px solid var(--line);
     box-shadow: 6px 6px 0 var(--accent, var(--cobalt));
@@ -793,7 +794,7 @@ button { font: inherit; color: inherit; }
 
   /* home: a modest photo, then the text */
   .home-grid { grid-template-columns: 1fr; gap: 1.4rem; }
-  .portrait { width: min(58%, 220px); aspect-ratio: 4 / 5; }
+  .portrait { width: min(58%, 220px); aspect-ratio: 4 / 5; margin: 0 auto; }
   .portrait-hint { font-size: 0.8rem; padding: 4px 10px; }
   .lede { font-size: 1.02rem; }
 
