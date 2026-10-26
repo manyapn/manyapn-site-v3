@@ -214,6 +214,9 @@ button { font: inherit; color: inherit; }
 
 .nav-dot-ghost { width: 8px; height: 8px; flex-shrink: 0; }
 
+/* phone menu (hidden on wide screens) */
+.nav-menu-btn, .nav-menu, .nav-backdrop { display: none; }
+
 /* ─── Landscape hero ─────────────────────────────────── */
 .hero { position: relative; margin-bottom: 2.6rem; }
 
@@ -230,7 +233,7 @@ button { font: inherit; color: inherit; }
   touch-action: pan-y;
 }
 
-.land-px, .land-wc {
+.land-px, .land-lens {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -241,8 +244,8 @@ button { font: inherit; color: inherit; }
 }
 
 .land-px { image-rendering: pixelated; image-rendering: crisp-edges; }
+.land-lens { pointer-events: none; background: var(--paper); opacity: 0.3; mix-blend-mode: lighten; }
 
-.land-wc { pointer-events: none; }
 
 
 /* The caption label sits on the hero's bottom edge like a paint-chip tag. */
@@ -298,7 +301,7 @@ button { font: inherit; color: inherit; }
 .px-step:hover { transform: scale(1.2); }
 .px-step[aria-checked="true"] { outline: 2px solid var(--accent); outline-offset: 1px; }
 .hero { position: relative; }
-@media (max-width: 520px) { .px-control-value { display: none; } }
+@media (max-width: 700px) { .px-control-value { display: none; } }
 
 /* ─── Page enter: one moment ─────────────────────────── */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -306,7 +309,14 @@ button { font: inherit; color: inherit; }
 .enter-2, .home-enter-delay, .home-enter-delay-2 { animation-delay: 0.1s; }
 
 /* ─── Pixel cat ──────────────────────────────────────── */
-.cat { display: inline-block; vertical-align: middle; shape-rendering: crispEdges; }
+.cat-wrap { position: relative; display: inline-flex; align-items: center; }
+.cat { display: inline-block; vertical-align: middle; shape-rendering: crispEdges; cursor: pointer; }
+.cat-word {
+  position: absolute; left: calc(100% + 4px); top: -10px;
+  background: var(--paper); color: var(--ink);
+  padding: 0 5px; font-size: 0.72rem; line-height: 1.5; white-space: nowrap;
+  box-shadow: 2px 2px 0 var(--accent);
+}
 
 /* ─── Home ───────────────────────────────────────────── */
 .lede { font-size: 1.1rem; line-height: 1.75; }
@@ -341,12 +351,7 @@ button { font: inherit; color: inherit; }
 .notes-pic figcaption { margin-top: 0.7rem; color: var(--muted); }
 .notes-stamp { margin-top: 1.2rem; color: var(--muted); }
 @media (max-width: 560px) { .notes { grid-template-columns: 1fr; } .notes-pic { max-width: 220px; } }
-@media (max-width: 520px) {
-  .nav { padding-top: 14px; }
-  .nav-links { font-size: 0.95rem; width: 100%; justify-content: space-between; }
-  .nav-link { padding: 0.3rem 0.1rem; gap: 0.3rem; }
-  .nav-dot, .nav-dot-ghost { width: 6px; height: 6px; }
-}
+
 
 /* ─── Experiences: timeline ──────────────────────────── */
 .xp-resume { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
@@ -459,6 +464,12 @@ button { font: inherit; color: inherit; }
 .more-desc { font-size: 0.9rem; color: var(--muted); margin: 0 0 0.2rem; }
 
 .deck-more { margin-top: 2.4rem; }
+.title-link { color: var(--ink); border-bottom-color: transparent; }
+.title-link:hover, .title-link:focus-visible { border-bottom-color: var(--accent); }
+
+/* project write-ups */
+.writeup-note { color: var(--muted); margin-bottom: 2rem; }
+.writeup-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 3rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
 
 /* ─── 2cents: posts ──────────────────────────────────── */
 .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 2rem; }
@@ -603,4 +614,214 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* ─── Home: portrait beside the intro ───────────────── */
+.page-home { --hero-h: 28vh; }
+.home-grid { display: grid; grid-template-columns: 16rem 1fr; gap: 2.6rem; align-items: stretch; }
+.home-text p:last-child { margin-bottom: 0; }
+.portrait {
+  position: relative; display: block; padding: 0; border: 0; overflow: hidden;
+  background: var(--paper-2);
+  box-shadow: 6px 6px 0 var(--accent);
+  cursor: pointer;
+}
+.portrait canvas { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; image-rendering: pixelated; }
+.portrait-hint {
+  position: absolute; left: 0; bottom: 0;
+  padding: 2px 8px;
+  background: color-mix(in oklab, var(--paper) 90%, transparent);
+  color: var(--ink); font-size: 0.78rem;
+}
+.portrait:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 700px) {
+  .home-grid { grid-template-columns: 1fr; gap: 1.6rem; }
+  .portrait { aspect-ratio: 4 / 5; max-width: 260px; }
+}
+
+/* ─── Fun: travel map ────────────────────────────────── */
+.map-scroll {
+  /* wider than the text column; bleeds past it evenly on both sides */
+  width: min(860px, 100vw - 40px);
+  margin: 0.4rem 0 1.2rem 50%;
+  transform: translateX(-50%);
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+.map {
+  position: relative;
+  aspect-ratio: 360 / 131;
+  min-width: 560px;
+  background: var(--paper-2);
+  box-shadow: 5px 5px 0 var(--wash-strong);
+}
+.map-inner { position: absolute; left: 0; width: 100%; aspect-ratio: 360 / 131; top: 50%; translate: 0 -50%; }
+.map-canvas { position: absolute; inset: 0; transform-origin: 0 0; }
+.map-land { position: absolute; inset: 0; width: 100%; height: 100%; display: block; image-rendering: pixelated; pointer-events: none; }
+.pin {
+  position: absolute;
+  --size: calc(9px + var(--n, 1) * 0.7px);
+  width: var(--size); height: var(--size); padding: 0;
+  margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+  border: 2px solid var(--paper);
+  background: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.pin:hover, .pin:focus-visible, .pin[data-hot] { background: var(--accent); z-index: 2; }
+.pin[data-on] { background: var(--accent); z-index: 3; }
+.pin-ring { position: absolute; inset: -6px; border: 2px solid var(--accent); pointer-events: none; }
+.map-zoom {
+  position: absolute; right: 10px; bottom: 10px; z-index: 4;
+  display: inline-flex; align-items: center; gap: 2px;
+  background: color-mix(in oklab, var(--paper) 90%, transparent);
+  padding: 3px;
+}
+.map-zoom button {
+  width: 24px; height: 24px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink);
+  font: inherit; line-height: 1; cursor: pointer;
+}
+.map-zoom button:hover:not(:disabled) { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+.map-zoom button:disabled { opacity: 0.35; cursor: default; }
+.map-zoom span { min-width: 3.4em; text-align: center; font-size: 0.78rem; }
+.pin-tag {
+  position: absolute; left: 50%; bottom: calc(100% + 7px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--paper); color: var(--ink);
+  padding: 1px 6px; font-size: 0.78rem; line-height: 1.4;
+  box-shadow: 2px 2px 0 var(--accent);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+.pin:hover .pin-tag, .pin:focus-visible .pin-tag, .pin[data-hot] .pin-tag, .pin[data-on] .pin-tag { opacity: 1; }
+.regions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem 1rem; margin-bottom: 2.4rem; }
+.city-tabs { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.9rem; }
+.region h3 { font-family: inherit; font-weight: 400; font-size: 0.78rem; color: var(--muted); margin: 0 0 0.3rem; padding: 0 0.6rem 0.3rem; border-bottom: 1px solid var(--line); }
+.region ul { list-style: none; display: flex; flex-direction: column; }
+.region .tag { display: block; width: 100%; text-align: left; padding: 0.18rem 0.6rem; }
+@media (max-width: 700px) { .regions { grid-template-columns: repeat(3, 1fr); } }
+.snaps { display: flex; flex-direction: column; gap: 8px; }
+.snap-row { display: flex; gap: 8px; }
+.snap { position: relative; height: 100%; flex: none; margin: 0; overflow: hidden; background: var(--paper-2); }
+.snap-btn { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+.snap img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.snap-px { image-rendering: pixelated; }
+.snap-clear { opacity: 0; }
+.snap-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.snap figcaption {
+  position: absolute; left: 0; bottom: 0; max-width: 100%;
+  background: var(--paper); color: var(--ink);
+  padding: 1px 6px; font-size: 0.78rem; line-height: 1.4;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* the place card: a paper tag inside the grid */
+.snap-card {
+  flex: none; height: 100%; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 0.6rem;
+  padding: 1.1rem 1.2rem 1rem;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line), 5px 5px 0 var(--accent);
+}
+.snap-card h2 { margin: 0; font-size: 1.7rem; line-height: 1.05; }
+.snap-card-foot { display: flex; flex-direction: column; gap: 0.3rem; }
+.snap-when { color: var(--ink); }
+.snap-meta { color: var(--muted); font-size: 0.8rem; }
+.snaps-hint { margin-top: 1rem; color: var(--muted); font-size: 0.8rem; }
+
+
+/* ─── Phones ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  html { -webkit-text-size-adjust: 100%; }
+  body { -webkit-tap-highlight-color: transparent; }
+  .frame, .wrap, .wrap-wide {
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
+  p { max-width: none; }
+
+  /* nav: brand left, a pixel menu button right that names the current page; the list drops down under it */
+  .nav { padding: 12px 0 10px; gap: 0.6rem; flex-wrap: nowrap; position: relative; z-index: 30; }
+  .nav-brand { gap: 0.75rem; font-size: 0.92rem; min-height: 44px; }
+  .nav-brand span { white-space: nowrap; }
+  .nav-links { display: none; }
+  .nav-menu-btn {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    min-height: 44px; padding: 0.4rem 0.8rem;
+    border: 1px solid var(--line); background: var(--paper);
+    color: var(--ink); font: inherit; font-size: 0.92rem; cursor: pointer; flex-shrink: 0;
+  }
+  .nav-menu-btn:active { background: var(--paper-2); }
+  .nav-menu-btn .nav-dot { width: 7px; height: 7px; }
+  .nav-menu-icon { display: grid; grid-template-columns: 5px 5px; gap: 3px; margin-left: 2px; transition: transform 0.25s var(--ease-out); }
+  .nav-menu-icon i { width: 5px; height: 5px; background: var(--ink); }
+  .nav-menu-icon[data-open] { transform: rotate(45deg); }
+  .nav-backdrop { display: block; position: fixed; inset: 0; z-index: 10; border: 0; padding: 0; background: color-mix(in oklab, var(--ink) 18%, transparent); }
+  .nav-menu {
+    display: flex; flex-direction: column;
+    position: absolute; left: 20px; right: 20px; top: calc(100% + 4px); z-index: 20;
+    list-style: none; padding: 0.3rem 0;
+    background: var(--paper); border: 1px solid var(--line);
+    box-shadow: 6px 6px 0 var(--accent, var(--cobalt));
+  }
+  .nav-menu-link {
+    display: flex; align-items: center; gap: 0.75rem;
+    min-height: 52px; padding: 0.6rem 1.1rem; font-size: 1.1rem; color: var(--muted);
+  }
+  .nav-menu-link:active { background: var(--paper-2); }
+  .nav-menu-link[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+  .nav-menu li + li .nav-menu-link { border-top: 1px solid var(--line); }
+  .nav-menu .nav-dot, .nav-menu .nav-dot-ghost { width: 8px; height: 8px; }
+
+  /* hero: shorter, fixed at 240 pixels wide (no control on phones) */
+  .land { height: clamp(200px, 30vh, 280px); }
+  .px-control { display: none; }
+  .hero-card { padding: 0.55rem 0.8rem 0.5rem; }
+  .hero-card h1 { font-size: 1.7rem; }
+  .hero-meta { font-size: 0.78rem; margin-top: 0.7rem; gap: 0.4rem 1rem; }
+
+  /* chip rows scroll sideways instead of wrapping into orphans */
+  .xp-filters, .tags, .city-tabs {
+    flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px;
+    margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .xp-filters::-webkit-scrollbar, .tags::-webkit-scrollbar, .city-tabs::-webkit-scrollbar { display: none; }
+  .xp-filter, .tag { min-height: 40px; padding: 0.45rem 0.8rem; white-space: nowrap; }
+  .tag:active, .xp-filter:active { background: var(--paper-2); }
+
+  /* home: a modest photo, then the text */
+  .home-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .portrait { width: min(58%, 220px); aspect-ratio: 4 / 5; }
+  .portrait-hint { font-size: 0.8rem; padding: 4px 10px; }
+  .lede { font-size: 1.02rem; }
+
+  /* writing: code and diagrams scroll inside a full-bleed strip instead of pushing the page wider */
+  .post-content pre {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    font-size: 0.74rem; line-height: 1.5;
+    margin-left: -20px; margin-right: -20px; padding: 0.9rem 20px;
+  }
+
+  /* fun: the map stays in the column, starts zoomed in, pins and zoom buttons get real tap targets */
+  .map-scroll { width: 100%; margin-left: 0; transform: none; overflow: hidden; }
+  .map { min-width: 0; aspect-ratio: 1 / 1; }
+  .pin::before { content: ""; position: absolute; inset: -11px; }
+  .pin-tag { font-size: 0.72rem; }
+  .map-zoom { right: 6px; bottom: 6px; padding: 3px; gap: 3px; }
+  .map-zoom button { width: 40px; height: 40px; }
+  .regions { grid-template-columns: repeat(2, 1fr); gap: 1rem 1.2rem; margin-bottom: 1.8rem; }
+  .region .tag { min-height: 44px; padding: 0.55rem 0.6rem; white-space: normal; }
+  .snap-card { padding: 0.8rem 0.9rem; gap: 0.4rem; }
+  .snap-card h2 { font-size: 1.3rem; }
+  .snap-meta { font-size: 0.74rem; }
+  .snap figcaption { font-size: 0.72rem; }
+
+  /* experiences: the timeline scrolls sideways; make that obvious */
+  .xp-chart-wrap { margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px; }
+
+  /* now: the side picture under the list, not squeezed */
+  .notes { padding: 1rem 1rem 1.2rem; }
+  .notes-pic { max-width: 100%; }
 }

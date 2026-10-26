@@ -11,12 +11,15 @@ export type Project = {
   tier: "featured" | "more" | "writing";
   /** Short, true, specific. Shown only on featured strips. */
   facts?: string[];
+  /** True when there's a case study at /projects/<id>, in src/content/projects. */
+  writeup?: boolean;
   links: ProjectLink[];
 };
 
 export const projects: Project[] = [
   {
     id: "checkpoint",
+    writeup: true,
     title: "Checkpoint",
     description:
       "automatic version control for ai coding sessions. it records every file write as it happens, remembers who made it, and lets you undo an agent's turn without touching your own edits.",
@@ -28,6 +31,7 @@ export const projects: Project[] = [
   },
   {
     id: "tandem",
+    writeup: true,
     title: "Tandem",
     description:
       "a text-based navigation app for people with accessibility concerns. it scores routes with claude vision over openstreetmap data and recommends the best one with photo evidence.",
@@ -39,6 +43,7 @@ export const projects: Project[] = [
   },
   {
     id: "me-json",
+    writeup: true,
     title: "me.json",
     description:
       "an open-source npm toolkit that turns a personal website into a small programmable place: visit it from a terminal, or connect an agent over mcp.",
@@ -61,6 +66,7 @@ export const projects: Project[] = [
   },
   {
     id: "paperdiff",
+    writeup: true,
     title: "PaperDiff",
     description:
       "two papers, two headlines, one apparent contradiction. paperdiff reads both primary sources and shows where the disagreement is real and where it's just scope.",
@@ -71,6 +77,7 @@ export const projects: Project[] = [
   },
   {
     id: "symbolic-equation-solver",
+    writeup: true,
     title: "Symbolic Equation Solver",
     description:
       "an ocaml symbolic math engine with a latex lexer, a recursive-descent parser, an evaluator, and a two-player math race over tcp. written for cs 3110.",
@@ -81,6 +88,7 @@ export const projects: Project[] = [
   },
   {
     id: "tiny-habit-coach",
+    writeup: true,
     title: "Tiny Habit Coach",
     description:
       "an ai habit coach that helps you redesign a habit after a missed day instead of just counting streaks.",

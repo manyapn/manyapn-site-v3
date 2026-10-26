@@ -30,7 +30,7 @@ export default async function Image() {
           >
             manya pradeep narayan
           </div>
-          <div style={{ fontSize: 24, color: "#5f6a72", paddingBottom: 10, display: "flex" }}>manyapn.com</div>
+          <div style={{ fontSize: 24, color: "#5f6a72", paddingBottom: 10, display: "flex" }}>manyapn.github.io</div>
         </div>
       </div>
     ),

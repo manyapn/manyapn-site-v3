@@ -9,7 +9,7 @@ import { getLatestPush } from "@/lib/github";
 export const metadata = {
   title: "now | manya pradeep narayan",
   description:
-    "what manya is up to right now: researching agentic browser security at uw, engineering at finmd, and spending the summer in seattle.",
+    "what manya is up to right now: engineering at finmd, building with cornell engineers without borders and women in computing, taking classes, and looking for summer 2027 internships.",
 };
 
 export default async function NowPage() {
@@ -25,15 +25,27 @@ export default async function NowPage() {
 
       <div className="wrap enter-2">
         <p className="lede">
-          this summer, i&apos;m back in <Wash pigment="lavender">seattle</Wash>!
+          this fall, i&apos;m back in <Wash pigment="lavender">ithaca</Wash>!
         </p>
 
         <p className="muted" style={{ marginTop: "1.4rem" }}>i&apos;m currently:</p>
         <ul className="now-list" role="list">
-          <li><span>researching <Wash pigment="lavender">agentic browser security</Wash> @ uw security &amp; privacy lab</span></li>
-          <li><span>doing <Wash pigment="cobalt">full-stack/product engineering</Wash> @ finmd</span></li>
+          <li>
+            <span>
+              doing <Wash pigment="cobalt">full-stack/product engineering</Wash> @{" "}
+              <a href="https://www.finmd.com/" target="_blank" rel="noreferrer">finmd</a>
+            </span>
+          </li>
+          <li>
+            <span>
+              working on cool swe projects w/{" "}
+              <a href="https://ewbcornell.org/teams/software/" target="_blank" rel="noreferrer">cornell engineers without borders</a>{" "}
+              + the <Wash pigment="lavender">women in computing</Wash> technical committee
+            </span>
+          </li>
+          <li><span>taking fun classes (incl. <Wash pigment="ochre">intro ml, computer systems, hindi</Wash>)</span></li>
           <li><span>upskilling in <Wash pigment="viridian">ai engineering, ml</Wash>, etc etc</span></li>
-          <li><span>hoping to attend cool events and meet cool people :)</span></li>
+          <li><span>looking for <Wash pigment="rose">summer 2027 internships</Wash> :)</span></li>
         </ul>
 
         <section className="notes" aria-label="other fun stuff">

@@ -1,7 +1,8 @@
 /**
- * One landscape per page. The png is the pixel-watercolor (240 px wide, drawn
- * with image-rendering: pixelated); the jpg is the smooth watercolor pass that
- * shows through the hover lens. Both come from scripts/pixwc.py.
+ * One landscape per page: a pixel-watercolor png, 1920 px wide, that the
+ * hero pixelates further on a canvas at whatever level the viewer picks. The
+ * commons photos are fetched by scripts/fetch-photos.py; montroyal is my own;
+ * scripts/landscapes.py paints and quantizes both kinds.
  *
  * Accents are hand-picked pigments from each painting, so every page's links
  * and washes are tinted by its own landscape.
@@ -16,7 +17,8 @@ export type Landscape = {
   focus: string;
   pigment: string;
   accent: string;
-  credit: { artist: string; license: string; licenseUrl?: string; page: string };
+  /** Where the photo came from. Left out when it's one of mine. */
+  credit?: { artist: string; license: string; licenseUrl?: string; page: string };
 };
 
 export const landscapes = {
@@ -24,8 +26,8 @@ export const landscapes = {
     key: "rainier",
     place: "paradise, mt. rainier",
     alt: "A gravel trail through pink wildflowers at Paradise, with the Tatoosh range behind, painted in pixels",
-    width: 240,
-    height: 109,
+    width: 1920,
+    height: 872,
     focus: "55% 30%",
     pigment: "rose madder",
     accent: "#b25e7e",
@@ -39,8 +41,8 @@ export const landscapes = {
     key: "kerry",
     place: "seattle from kerry park",
     alt: "The Seattle skyline and Space Needle from Kerry Park, painted in pixels",
-    width: 240,
-    height: 109,
+    width: 1920,
+    height: 872,
     focus: "20% 50%",
     pigment: "lavender",
     accent: "#7a81b6",
@@ -55,8 +57,8 @@ export const landscapes = {
     key: "everest",
     place: "everest from kala patthar",
     alt: "Everest and Nuptse under a cobalt sky, painted in pixels",
-    width: 240,
-    height: 109,
+    width: 1920,
+    height: 872,
     focus: "50% 50%",
     pigment: "cobalt",
     accent: "#3a6fa6",
@@ -71,8 +73,8 @@ export const landscapes = {
     key: "diablo",
     place: "diablo lake, north cascades",
     alt: "The teal water of Diablo Lake between forested ridges, painted in pixels",
-    width: 240,
-    height: 109,
+    width: 1920,
+    height: 872,
     focus: "50% 60%",
     pigment: "viridian",
     accent: "#3f8f98",
@@ -87,8 +89,8 @@ export const landscapes = {
     key: "palouse",
     place: "the palouse from steptoe butte",
     alt: "Rolling wheat hills of the Palouse at sunrise, painted in pixels",
-    width: 240,
-    height: 109,
+    width: 1920,
+    height: 872,
     focus: "50% 70%",
     pigment: "yellow ochre",
     accent: "#b08a3a",
@@ -103,8 +105,8 @@ export const landscapes = {
     key: "gorge",
     place: "cascadilla gorge, ithaca",
     alt: "A trail through the green of Cascadilla Gorge, painted in pixels",
-    width: 240,
-    height: 109,
+    width: 1920,
+    height: 872,
     focus: "50% 50%",
     pigment: "sap green",
     accent: "#5f8f45",
@@ -119,8 +121,8 @@ export const landscapes = {
     key: "pike",
     place: "pike place market, seattle",
     alt: "The Public Market neon sign at Pike Place, painted in pixels",
-    width: 240,
-    height: 160,
+    width: 1920,
+    height: 1280,
     focus: "50% 30%",
     pigment: "alizarin",
     accent: "#9c3b47",
@@ -131,6 +133,16 @@ export const landscapes = {
       page: "https://commons.wikimedia.org/wiki/File:Public_Market_sign_at_Pike_Place_Market,_2017.jpg",
     },
   },
+  montroyal: {
+    key: "montroyal",
+    place: "mont royal, montréal",
+    alt: "The Montréal skyline from Mont Royal over red autumn leaves, painted in pixels",
+    width: 1920,
+    height: 872,
+    focus: "50% 55%",
+    pigment: "rust",
+    accent: "#a24a3e",
+  },
 } satisfies Record<string, Landscape>;
 
 export type LandscapeKey = keyof typeof landscapes;
@@ -138,4 +150,3 @@ export type LandscapeKey = keyof typeof landscapes;
 export const landscapeList: Landscape[] = Object.values(landscapes);
 
 export const pxSrc = (l: Landscape) => `/land/${l.key}.png`;
-export const wcSrc = (l: Landscape) => `/land/${l.key}.jpg`;

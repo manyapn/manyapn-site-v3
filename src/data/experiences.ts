@@ -20,6 +20,20 @@ export type Experience = {
 /** Ordered newest first. Split into "currently" / "previously" by `current`. */
 export const experiences: Experience[] = [
   {
+    id: "finmd",
+    period: "jun '26 – now",
+    start: "2026-06",
+    end: null,
+    role: "Software Engineering Intern, Data, Platform & Product",
+    org: "FinMD",
+    short: "FinMD",
+    orgUrl: "https://www.finmd.com/",
+    description:
+      "building data products for a healthcare lending platform.",
+    category: "internship",
+    current: true,
+  },
+  {
     id: "uw-security",
     period: "jun '26 – now",
     start: "2026-06",
@@ -29,22 +43,8 @@ export const experiences: Experience[] = [
     short: "UW Security",
     orgUrl: "https://www.franziroesner.com/students.html",
     description:
-      "leading an nsf-funded, first-author study on how browser agents hold up against deceptive web design. built three playwright/cdp harnesses and crash-safe experiment infrastructure for unattended runs, and found scaffold failure modes in comet, claude-in-chrome, and others.",
+      "researching commercial browser agent susceptibility to deceptive web design.",
     category: "research",
-    current: true,
-  },
-  {
-    id: "finmd",
-    period: "jun '26 – now",
-    start: "2026-06",
-    end: null,
-    role: "Software Engineering Intern, Data & Product",
-    org: "FinMD",
-    short: "FinMD",
-    orgUrl: "https://www.finmd.com/",
-    description:
-      "built terrain end to end, a national risk map of housing and physician data for a $35b bank demo. also a scrapy crawler enriching a 1.1m-physician registry, and an llm pipeline that writes talking points for bankers with 97.2% grounding across 250 held-out cases.",
-    category: "internship",
     current: true,
   },
   {
@@ -56,7 +56,7 @@ export const experiences: Experience[] = [
     org: "UW Human-Computer Interaction Lab",
     short: "UW HCI",
     description:
-      "built a reusable llm pipeline analyzing android talkback traces for accessibility issues affecting blind users. cut token spend 67–81% by compacting view trees, and found 5 new failures across 9 task traces.",
+      "building an llm pipeline that finds accessibility issues in android talkback traces.",
     collaborator: { name: "mingyuan zhong", url: "https://mingyuanz.com/" },
     category: "research",
     current: true,
@@ -71,7 +71,7 @@ export const experiences: Experience[] = [
     short: "EWB",
     orgUrl: "https://www.ewbcornell.org/software-development",
     description:
-      "building node/express rest apis for the inventory, donation, and sales workflows behind ithaca reuse, a nonprofit moving 800k+ items a year.",
+      "backend developer for ithaca reuse's inventory, donation, and sales apis.",
     category: "club",
     current: true,
   },
@@ -85,7 +85,7 @@ export const experiences: Experience[] = [
     short: "Cornell C2L",
     orgUrl: "https://c2l.infosci.cornell.edu/",
     description:
-      "worked on narrative geography data, annotation guidelines, and computational humanities research.",
+      "narrative geography data and annotation guidelines for computational humanities research.",
     category: "research",
     current: false,
   },
@@ -99,21 +99,21 @@ export const experiences: Experience[] = [
     short: "LessonLoop",
     orgUrl: "https://lessonloop.org/our-platform/",
     description:
-      "built engagify (vue/nuxt, node.js, aws bedrock), an ai lesson revision tool that raised student engagement 17%, with a rag backend over a 2,500+ item knowledge base.",
+      "built engagify, an ai lesson revision tool with a rag backend.",
     category: "internship",
     current: false,
   },
   {
     id: "deca",
-    period: "mar '24 – apr '25",
-    start: "2024-03",
+    period: "mar '23 – apr '25",
+    start: "2023-03",
     end: "2025-04",
     role: "State President",
     org: "Washington DECA",
     short: "WA DECA",
     orgUrl: "https://wadeca.org/",
     description:
-      "led a statewide student organization of 17,000+ members across 165+ chapters.",
+      "led a statewide student org of 17,000+ members across 165+ chapters.",
     category: "club",
     current: false,
   },

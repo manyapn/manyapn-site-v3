@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
-import { pxSrc, wcSrc, type Landscape as Land } from "@/data/landscapes";
+import { pxSrc, type Landscape as Land } from "@/data/landscapes";
 
-/** Pixel widths a viewer can choose. The last one is the smooth watercolor. */
-export const LEVELS = [30, 60, 120, 240, Infinity] as const;
+/** Pixel widths a viewer can choose. */
+export const LEVELS = [30, 60, 120, 240, 480, 960, 1920] as const;
 const DEFAULT_LEVEL = 3;
 const STORAGE_KEY = "px-width";
 /** Widths the painting passes through while it develops on first load. */
-const DEVELOP_STEPS = [10, 20, 40, 80, 160];
+const DEVELOP_STEPS = [10, 20, 40, 80, 160, 320, 640, 1280];
 const STEP_MS = 85;
 const LENS_RADIUS = 150;
 
@@ -18,7 +18,7 @@ type Props = { land: Land; children?: React.ReactNode };
 function readLevel(): number {
   try {
     const v = localStorage.getItem(STORAGE_KEY);
-    const i = LEVELS.findIndex((w) => (w === Infinity ? "full" : String(w)) === v);
+    const i = LEVELS.findIndex((w) => String(w) === v);
     return i >= 0 ? i : DEFAULT_LEVEL;
   } catch {
     return DEFAULT_LEVEL;
@@ -26,20 +26,17 @@ function readLevel(): number {
 }
 
 /**
- * The pixel-watercolor hero.
- *
- * Two layers: a canvas holding the pixel painting, and the smooth watercolor
- * on top, masked to a circle that follows the pointer. On load the canvas
- * "develops" from a handful of blocks to the chosen level in five steps. The
- * viewer can pick how many pixels they want, from 12 wide to the full painting.
+ * The pixel-watercolor hero: a canvas holding the painting at the chosen
+ * level, with a soft paper-coloured lens that follows the pointer and lifts
+ * the pixels under it a few shades.
+ * On load the canvas "develops" from a handful of blocks to the chosen level
+ * step by step, and the viewer can pick how many pixels they want.
  */
 export default function Landscape({ land, children }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [level, setLevel] = useState(DEFAULT_LEVEL);
   const [ready, setReady] = useState(false);
-  const full = LEVELS[level] === Infinity;
-
   const mx = useMotionValue(-1000);
   const my = useMotionValue(-1000);
   const r = useMotionValue(0);
@@ -64,7 +61,9 @@ export default function Landscape({ land, children }: Props) {
     off.height = h;
     const octx = off.getContext("2d");
     if (!octx) return;
-    octx.imageSmoothingEnabled = true;
+    // Sample the palette pixels directly at the readable levels so each one stays crisp
+    // and the steps look different; only the very coarse levels get averaged.
+    octx.imageSmoothingEnabled = w < 240;
     octx.drawImage(img, 0, 0, w, h);
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -77,7 +76,8 @@ export default function Landscape({ land, children }: Props) {
     if (!canvas) return;
     canvas.width = land.width;
     canvas.height = land.height;
-    const saved = readLevel();
+    // Phones stay at 240 wide: no control, and a saved desktop choice doesn't carry over.
+    const saved = window.matchMedia("(max-width: 600px)").matches ? DEFAULT_LEVEL : readLevel();
     setLevel(saved);
 
     const img = new Image();
@@ -103,7 +103,7 @@ export default function Landscape({ land, children }: Props) {
     if (!ready) return;
     drawAt(Math.min(LEVELS[level], land.width));
     try {
-      localStorage.setItem(STORAGE_KEY, LEVELS[level] === Infinity ? "full" : String(LEVELS[level]));
+      localStorage.setItem(STORAGE_KEY, String(LEVELS[level]));
     } catch {
       // private mode; the choice just won't stick
     }
@@ -135,14 +135,7 @@ export default function Landscape({ land, children }: Props) {
         onPointerLeave={leave}
       >
         <canvas ref={canvasRef} className="land-px" role="img" aria-label={land.alt} />
-        <motion.img
-          className="land-wc"
-          src={wcSrc(land)}
-          alt=""
-          aria-hidden="true"
-          draggable={false}
-          style={full ? undefined : { maskImage: mask, WebkitMaskImage: mask }}
-        />
+        <motion.div className="land-lens" aria-hidden="true" style={{ maskImage: mask, WebkitMaskImage: mask }} />
         {children}
       </div>
 
@@ -154,13 +147,13 @@ export default function Landscape({ land, children }: Props) {
             type="button"
             role="radio"
             aria-checked={level === i}
-            aria-label={w === Infinity ? "no pixels, the full painting" : `${w} pixels wide`}
+            aria-label={`${w} pixels wide`}
             className="px-step"
             data-on={i <= level || undefined}
             onClick={() => setLevel(i)}
           />
         ))}
-        <span className="px-control-value">{full ? "painting" : `${LEVELS[level]} wide`}</span>
+        <span className="px-control-value">{LEVELS[level]} wide</span>
       </div>
     </>
   );

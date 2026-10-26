@@ -10,8 +10,7 @@ type Props = {
 
 /**
  * Every page opens the same way: its landscape, a paper tag carrying the
- * title, a caption naming the place and crediting the photo, and the pixel
- * control.
+ * title, a caption naming the place, and the pixel control.
  */
 export default function PageHead({ land, title, aside }: Props) {
   const c = land.credit;
@@ -24,12 +23,18 @@ export default function PageHead({ land, title, aside }: Props) {
         </div>
         <div className="hero-meta pixel">
           <span>
-            {land.place} · {land.pigment} · photo{" "}
-            <a href={c.page} target="_blank" rel="noreferrer">{c.artist}</a>
-            {c.licenseUrl ? (
-              <>, <a href={c.licenseUrl} target="_blank" rel="noreferrer">{c.license}</a></>
+            {land.place} · {land.pigment} ·{" "}
+            {c ? (
+              <>
+                photo <a href={c.page} target="_blank" rel="noreferrer">{c.artist}</a>
+                {c.licenseUrl ? (
+                  <>, <a href={c.licenseUrl} target="_blank" rel="noreferrer">{c.license}</a></>
+                ) : (
+                  <>, {c.license}</>
+                )}
+              </>
             ) : (
-              <>, {c.license}</>
+              "my photo"
             )}
           </span>
           {aside && <span>{aside}</span>}

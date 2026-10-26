@@ -1,18 +1,34 @@
+import Link from "next/link";
 import type { Project } from "@/data/projects";
-import { ArrowUpRightIcon } from "@/icons";
+import { ArrowRightIcon, ArrowUpRightIcon } from "@/icons";
 
 const PIGMENTS = ["var(--cobalt)", "var(--rose)", "var(--viridian)", "var(--ochre)", "var(--lavender)", "var(--sienna)", "var(--sap)", "var(--payne)", "var(--cerulean)"];
 
-function Links({ links }: { links: Project["links"] }) {
-  if (links.length === 0) return null;
+function Links({ project }: { project: Project }) {
+  if (project.links.length === 0 && !project.writeup) return null;
   return (
     <span className="proj-links pixel">
-      {links.map((l) => (
+      {project.writeup && (
+        <Link href={`/projects/${project.id}`}>
+          how it&apos;s built <ArrowRightIcon size={12} />
+        </Link>
+      )}
+      {project.links.map((l) => (
         <a key={l.url} href={l.url} target="_blank" rel="noreferrer">
           {l.label} <ArrowUpRightIcon size={12} />
         </a>
       ))}
     </span>
+  );
+}
+
+/** Titles link to the write-up when there is one. */
+function Title({ project, className }: { project: Project; className: string }) {
+  if (!project.writeup) return <>{project.title}</>;
+  return (
+    <Link href={`/projects/${project.id}`} className={className}>
+      {project.title}
+    </Link>
   );
 }
 
@@ -38,7 +54,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
             <Strip color={PIGMENTS[i % PIGMENTS.length]} />
             <div className="feat-body">
               <div className="feat-head">
-                <h2 className="feat-title">{p.title}</h2>
+                <h2 className="feat-title"><Title project={p} className="title-link" /></h2>
                 <span className="feat-when pixel">{p.when}</span>
               </div>
               <p className="feat-desc">{p.description}</p>
@@ -49,7 +65,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
               )}
               <div className="feat-foot pixel">
                 <span className="muted">{p.tech}</span>
-                <Links links={p.links} />
+                <Links project={p} />
               </div>
             </div>
           </li>
@@ -64,10 +80,11 @@ export default function Projects({ projects }: { projects: Project[] }) {
               <span className="more-dot" style={{ background: PIGMENTS[(i + 4) % PIGMENTS.length] }} aria-hidden="true" />
               <div>
                 <p className="more-title">
-                  {p.title} <span className="more-tech pixel">{p.tech}</span>
+                  <Title project={p} className="title-link" />{" "}
+                  <span className="more-tech pixel">{p.tech}</span>
                 </p>
                 <p className="more-desc">{p.description}</p>
-                <Links links={p.links} />
+                <Links project={p} />
               </div>
             </li>
           ))}
@@ -82,10 +99,11 @@ export default function Projects({ projects }: { projects: Project[] }) {
               <span className="more-dot" style={{ background: PIGMENTS[(i + 7) % PIGMENTS.length] }} aria-hidden="true" />
               <div>
                 <p className="more-title">
-                  {p.title} <span className="more-tech pixel">{p.tech}</span>
+                  <Title project={p} className="title-link" />{" "}
+                  <span className="more-tech pixel">{p.tech}</span>
                 </p>
                 <p className="more-desc">{p.description}</p>
-                <Links links={p.links} />
+                <Links project={p} />
               </div>
             </li>
           ))}

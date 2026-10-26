@@ -35,7 +35,7 @@ const description =
   "cs + ai student at cornell. interested in agentic systems, human-ai interaction, and what makes software feel reliable, useful, and personal.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://manyapn.com"),
+  metadataBase: new URL("https://manyapn.github.io"),
   title: "manya pradeep narayan",
   description,
   openGraph: {

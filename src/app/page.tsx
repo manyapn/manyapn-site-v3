@@ -1,4 +1,5 @@
 import EmailLink from "@/components/EmailLink";
+import Portrait from "@/components/Portrait";
 import Page from "@/components/Page";
 import PageHead from "@/components/PageHead";
 import Wash from "@/components/Wash";
@@ -11,10 +12,12 @@ export const metadata = { title: "manya pradeep narayan" };
 export default function Home() {
   const land = landscapes.rainier;
   return (
-    <Page land={land}>
+    <Page land={land} className="page-home">
       <PageHead land={land} title={<>hi, i&apos;m manya!</>} />
 
-      <div className="wrap enter-2">
+      <div className="wrap-wide enter-2 home-grid">
+        <Portrait src="/manya.jpg" alt="me in a green sweater by the water" />
+        <div className="home-text">
         <p className="lede">
           i&apos;m from <Wash pigment="rose">seattle</Wash>, and i&apos;m studying{" "}
           <Wash pigment="cobalt">cs + ai</Wash>{" "}at cornell university. lately, i&apos;ve been
@@ -27,7 +30,7 @@ export default function Home() {
           outside of work, some things that make me happy are trying new cafes and restaurants,
           68°F weather, social logging apps &amp; micro-communities{" "}
           <em>
-            (<a href="https://retro.app/" target="_blank" rel="noopener noreferrer">loving retro rn</a>)
+            (<a href="https://retro.app/" target="_blank" rel="noopener noreferrer">loving retro right now</a>)
           </em>
           , reading, collecting home depot paint chips, digi cams, traveling, trip planning,
           watching movies, and spending lots of time with friends and family.
@@ -45,6 +48,7 @@ export default function Home() {
             <LinkedinBrandIcon size={14} /> {personal.linkedin}
           </a>
         </p>
+        </div>
       </div>
     </Page>
   );

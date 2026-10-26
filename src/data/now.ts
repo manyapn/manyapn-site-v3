@@ -8,7 +8,7 @@ export type NowData = {
 };
 
 export const nowData: NowData = {
-  lastUpdated: "august 2026",
+  lastUpdated: "october 2026",
   reading: "the alignment problem, brian christian",
   beliUrl: "https://beliapp.co/app/manyapn",
   fallbackMovie: "Obsession",
