@@ -36,7 +36,7 @@
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --px-steps: steps(5, end);
-  --wrap: 680px;
+  --wrap: 780px;
   --frame: 1120px;
 }
 
@@ -185,7 +185,7 @@ mark { color: inherit; padding: 0 0.08em; }
 /* ─── Layout ─────────────────────────────────────────── */
 .frame { max-width: var(--frame); margin: 0 auto; padding: 0 20px; }
 .wrap  { max-width: var(--wrap);  margin: 0 auto; padding: 0 20px; }
-.wrap-wide { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+.wrap-wide { max-width: 940px; margin: 0 auto; padding: 0 20px; }
 
 main { padding-bottom: 3rem; }
 
