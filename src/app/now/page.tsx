@@ -77,6 +77,7 @@ export default async function NowPage() {
               width={landscapes.pike.width}
               height={landscapes.pike.height}
               alt={landscapes.pike.alt}
+              loading="lazy"
             />
             <figcaption className="pixel">{landscapes.pike.place}</figcaption>
           </figure>
