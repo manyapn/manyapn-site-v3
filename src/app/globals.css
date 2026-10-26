@@ -172,8 +172,9 @@ mark { color: inherit; padding: 0 0.08em; }
   opacity: 1;
   transform: translate(-50%, 0);
 }
-@media (max-width: 600px) {
-  .tip-tag { white-space: normal; width: max-content; max-width: 70vw; }
+@media (max-width: 700px) {
+  .tip-tag { position: fixed; left: 20px; right: 20px; bottom: 16px; top: auto; width: auto; white-space: normal; text-align: center; transform: translateY(6px); }
+  .tip:hover .tip-tag, .tip:focus .tip-tag { opacity: 1; transform: none; }
 }
 
 .field-notes { margin-top: 3.5rem; color: var(--muted); font-size: 0.86rem; line-height: 1.7; }
@@ -709,7 +710,8 @@ html[data-sunset] .land-lens { background: var(--rose); }
 .portrait:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 @media (max-width: 700px) {
   .home-grid { grid-template-columns: 1fr; gap: 1.6rem; }
-  .portrait { aspect-ratio: 4 / 5; width: 100%; max-width: 260px; justify-self: center; }
+  .portrait { aspect-ratio: 340 / 325; width: 100%; max-width: 340px; justify-self: center; }
+  .portrait canvas { object-position: 50% 22%; }
 }
 
 /* ─── Fun: travel map ────────────────────────────────── */
@@ -872,6 +874,7 @@ html[data-sunset] .land-lens { background: var(--rose); }
     scrollbar-width: none; -webkit-overflow-scrolling: touch;
   }
   .xp-filters::-webkit-scrollbar, .tags::-webkit-scrollbar, .city-tabs::-webkit-scrollbar { display: none; }
+  .xp-filters, .tags, .city-tabs { mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); padding-right: 28px; }
   .xp-filter, .tag { min-height: 40px; padding: 0.45rem 0.8rem; white-space: nowrap; }
   .tag:active, .xp-filter:active { background: var(--paper-2); }
 
@@ -903,9 +906,18 @@ html[data-sunset] .land-lens { background: var(--rose); }
   .snap figcaption { font-size: 0.72rem; }
 
   /* experiences: the timeline scrolls sideways; make that obvious */
-  .xp-chart-wrap { margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px; }
+  .xp-chart-wrap { --xp-gutter: 4.4rem; margin: 0 0 2.2rem; padding-right: 1.6rem; overflow: visible; }
+  .xp-chart { min-width: 0; }
+  .xp-row-label { font-size: 0.74rem; padding-right: 0.55rem; }
+  .xp-gridline-label, .xp-nowline-label { font-size: 0.74rem; }
 
   /* now: the side picture under the list, not squeezed */
   .notes { padding: 1rem 1rem 1.2rem; }
   .notes-pic { max-width: 100%; }
+}
+
+/* very narrow phones: the menu button keeps its dot and icon and drops the page name, so the row never overflows */
+@media (max-width: 480px) {
+  .nav-menu-btn { padding: 0.4rem 0.7rem; }
+  .nav-menu-btn > span:nth-child(2) { display: none; }
 }
